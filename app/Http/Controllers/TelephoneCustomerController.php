@@ -116,6 +116,10 @@ class TelephoneCustomerController extends Controller
 
     public function update(Request $request, $telephone_customer_id)
     {
+        // Elimino los numeros frecuentes
+        $favorite_numbers = favorite_number::where("telephone_customer_id", '=', $telephone_customer_id);
+        $favorite_numbers->delete();
+
         $telephone_customer = telephone_customer::find($telephone_customer_id);
         $telephone_customer->telephone_id = $request->post('telefonias');
         $telephone_customer->name = $request->post('name');
@@ -123,6 +127,26 @@ class TelephoneCustomerController extends Controller
         $telephone_customer->ap_materno = $request->post('ap_materno');
         $telephone_customer->numero_telefonico = $request->post('numero_telefonico');
         $telephone_customer->update();
+
+        $numero_telefonico_frecuentes = $request->post('numero_telefonico_frecuente');
+        $telefonia_frecuentes = $request->post('telefonia_frecuente');
+
+
+        // Guardamos los números frecuentes del usuario
+        foreach($numero_telefonico_frecuentes as $keyNF => $numero_telefonico_frecuente){
+            foreach($telefonia_frecuentes as $keyTF => $telefonia_frecuente){
+                if($keyNF == $keyTF){
+                    $favorite_number = new favorite_number([
+                        'telephone_customer_id' => $telephone_customer_id,
+                        'telephone_id' => $telefonia_frecuente,
+                        'numero_telefonico' => $numero_telefonico_frecuente
+                    ]);
+
+                    $favorite_number->save();
+                }
+            }
+        }
+
         return redirect()->route('usuarios.index')->with('success', 'Se editaron los datos correctamente ');
     }
 
@@ -135,5 +159,15 @@ class TelephoneCustomerController extends Controller
         $customer = telephone_customer::findOrFail($id);
         $customer->delete();
         return redirect()->route('usuarios.index')->with('success', 'Se elimino el usuario correctamente');
+    }
+
+    public function eliminarNumeroFrecuente($id){
+
+        $favorite_numbers = favorite_number::findOrFail($id);
+        $favorite_numbers->delete();
+
+        return response()->json([
+            'id' => $id
+        ]);
     }
 }

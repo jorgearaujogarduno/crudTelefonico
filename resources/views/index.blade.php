@@ -67,7 +67,7 @@
                                             <a  class="btn btn-success btn-sm" href="{{ route('usuarios.edit', $telephone_customer->id) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                         </form>
                                     </td>
                                 </tr>

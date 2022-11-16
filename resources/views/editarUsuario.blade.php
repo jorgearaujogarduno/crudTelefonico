@@ -84,6 +84,33 @@
         })
     });
 
+function eliminarNumeroFrecuente(id, favorite_number_id){
+    // var id = $(this).attr("id");
+    console.log(id);
+
+
+    $.ajax({
+            url: '../../usuarios/eliminarNumeroFrecuente/'+favorite_number_id,
+            // type: 'DELETE',
+            type: 'GET',
+            dataType: 'json',
+            success: function(Response) {
+                console.log(Response);
+                $('#newRow_' + id).remove();
+                numRow--;
+                $('#numRow').val(numRow);
+
+
+            }
+        });
+
+
+
+
+}
+
+
+
 
 </script>
 </html>

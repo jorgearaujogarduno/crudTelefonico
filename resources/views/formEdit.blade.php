@@ -98,7 +98,7 @@
                         @if ($i > 1)
                             <div class="form-group">
                                 <center><label>Eliminar número</label> <br>
-                                <a id="{{ $i }}" class="btn btn-danger btn-sm remove-link" href="#" role="button"><i class="fa fa-trash fa-lg" aria-hidden="true"></i></a></center>
+                                <a id="{{ $i }}" class="btn btn-danger btn-sm" onClick="JavaScript:eliminarNumeroFrecuente('{{ $i }}', '{{ $favorite_number->id }}');" href="#" role="button"><i class="fa fa-trash fa-lg" aria-hidden="true"></i></a></center>
                             </div>
                         @endif
                     </div>

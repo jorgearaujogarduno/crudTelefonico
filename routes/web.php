@@ -20,5 +20,5 @@ use App\Http\Controllers\TelephoneCustomerController;
 
 
 Route::resource("usuarios", TelephoneCustomerController::class)->only(['index', 'edit', 'update', 'show', 'create', 'store', 'destroy'])->names('usuarios');
-
+Route::get("usuarios/eliminarNumeroFrecuente/{id}", [TelephoneCustomerController::class, 'eliminarNumeroFrecuente'])->name('usuarios.eliminarNumeroFrecuente');
 
